@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from .forms import LoginForm
 from django.contrib.auth.decorators import login_required
+from .models import Client
 
 def user_login(request):
     if request.method == 'POST':
@@ -27,6 +28,8 @@ def user_login(request):
 
 @login_required
 def dashboard(request):
-    return render(request,
-                  'account/dashboard.html',
-                  {'section': 'dashboard'})
+    client = Client.objects.filter(user=request.user)
+    if client[0].is_enterprise:
+        return render(request,'account/dashboard_ent.html', {'section': 'dashboard'})
+    else:
+        return render(request,'account/dashboard_cus.html', {'section': 'dashboard'})
