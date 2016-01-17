@@ -1,8 +1,16 @@
 from django.contrib import admin
-from .models import Client
+from .models import Enterprise, Customer, Offer
 
 # Register your models here.
-class ClientAdmin(admin.ModelAdmin):
-       list_display = ['user', 'is_enterprise', 'is_customer']
+class EnterpriseAdmin(admin.ModelAdmin):
+       list_display = ['user']
 
-admin.site.register(Client, ClientAdmin)
+class CustomerAdmin(admin.ModelAdmin):
+       list_display = ['user']
+
+class OfferAdmin(admin.ModelAdmin):
+       list_display = ['name','enterprise','quantity','product_title','reward','participants','total_bought']
+
+admin.site.register(Enterprise, EnterpriseAdmin)
+admin.site.register(Customer, CustomerAdmin)
+admin.site.register(Offer,OfferAdmin)

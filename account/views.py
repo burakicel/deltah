@@ -1,9 +1,11 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
-from .forms import LoginForm
+from .forms import LoginForm, OfferForm
 from django.contrib.auth.decorators import login_required
-from .models import Client
+from .models import Enterprise, Offer
+from django.http import HttpResponseRedirect
+
 
 def user_login(request):
     if request.method == 'POST':
@@ -28,8 +30,28 @@ def user_login(request):
 
 @login_required
 def dashboard(request):
-    client = Client.objects.filter(user=request.user)
-    if client[0].is_enterprise:
+    acc = Enterprise.objects.filter(user=request.user)
+    if acc:
         return render(request,'account/dashboard_ent.html', {'section': 'dashboard'})
     else:
-        return render(request,'account/dashboard_cus.html', {'section': 'dashboard'})
+        return render(request,'account/dashboard_cus.html', {'section': 'dashboard', 'name': request.user.username})
+
+@login_required
+def offer(request):
+    acc = Enterprise.objects.filter(user=request.user)
+    if acc:
+        if request.method == 'POST':
+            form = OfferForm(request.POST)
+            if form.is_valid:
+                new_offer = Offer.objects.create(name=form['name'].data, quantity=form['quantity'].data, enterprise=acc[0],
+                    product_title=form['product_title'].data,reward=form['reward'].data)
+                new_offer.save()
+                return HttpResponseRedirect("../")
+            else:
+                return HttpResponse('Unvalid Data')
+        else:
+            form = OfferForm()
+
+        return render(request, 'account/offer.html',{'form': form})
+    else:
+        return HttpResponse('Not Available')
