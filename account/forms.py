@@ -1,4 +1,5 @@
 from django import forms
+from .models import Offer, Customer
 
 class LoginForm(forms.Form):
 	username = forms.CharField()
@@ -9,3 +10,8 @@ class OfferForm(forms.Form):
 	quantity = forms.IntegerField()
 	product_title = forms.CharField()
 	reward = forms.CharField()
+
+class TransactionForm(forms.Form):
+	price = forms.DecimalField()
+	offer = forms.ModelChoiceField(queryset=Offer.objects.all())
+	customer = forms.ModelChoiceField(queryset=Customer.objects.all())

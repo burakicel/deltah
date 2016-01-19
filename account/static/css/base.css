@@ -4,6 +4,7 @@
 body {
     margin:0;
     padding:0;
+    background-color: #f3f0f0;
     font-family:helvetica, sans-serif;
 }
 
@@ -306,5 +307,14 @@ input{
     background-color: white;
     width:100%;
     display:block;
+    border-radius: 12px;
+}
+
+.progress-bar-success{
+    height: 50px;
+    font-size: 30px;
+    font-family: 'Roboto';
+    padding-top: 20px;
+    margin-bottom: 30px;
     border-radius: 12px;
 }

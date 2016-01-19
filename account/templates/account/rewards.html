@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Your Rewards{% endblock %}
+
+{% block content %}
+<div class="container container-table">
+    <div class="row vertical-center-row">
+         <div class="container">
+  			<div class="jumbotron custidbox">
+    			<h1>Your Rewards</h1>
+			<p>Here is your earned rewards:</p>
+  			{% for out in output %}
+        <ul> 
+         <li><h2>{{out}}</h2></li>
+        </ul>
+  			{% endfor %} 
+			<button onclick="location.href='../'" type="button" class="btn btn-primary btn-lg btn-block btn-loyal round">Go Back</button>
+			</form>
+  			</div>
+		</div>	
+
+        </div>
+    </div>
+</div>
+{% endblock %}

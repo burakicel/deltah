@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Deals{% endblock %}
+
+{% block content %}
+<div class="container container-table">
+    <div class="row vertical-center-row">
+         <div class="container">
+  			<div class="jumbotron custidbox">
+    			<h1>Active Deals</h1>
+			<p>Here is your active deals:</p>
+			<ul>
+  			{% for out in output %}
+    		<h2>{{out.0}}</h2>
+    		<h3>{{out.1}} / {{out.2}}</h3>
+  				<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{out.3}}"
+  					aria-valuemin="0" aria-valuemax="100" style="width:{{out.3}}%">
+    				{{out.3}}%
+  				</div> </br></br></br>
+  			{% endfor %} 
+			</ul>
+			<button onclick="location.href='../'" type="button" class="btn btn-primary btn-lg btn-block btn-loyal round">Go Back</button>
+			</form>
+  			</div>
+		</div>	
+
+        </div>
+    </div>
+</div>
+{% endblock %}
